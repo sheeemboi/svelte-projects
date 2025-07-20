@@ -13,11 +13,7 @@
     todo.isEditable = newEditable;
     todo.isDisabled = newEditable;
   }
-  export function saveEdit(todo, e) {
-    todo.text = e.target.value;
-    todo.isEditable = false;
-    todo.isDisabled = false;
-  }
+
   export function completeItem(todo) {
     todo.completed = !todo.completed;
   }

@@ -1,13 +1,7 @@
 <script>
   import { Checkbox, Input, Label, Button } from "flowbite-svelte";
   import { Heading, P, Hr } from "flowbite-svelte";
-  import {
-    addItem,
-    deleteItem,
-    editItem,
-    saveEdit,
-    completeItem,
-  } from "./lib/utils";
+  import { addItem, deleteItem, editItem, completeItem } from "./lib/utils";
 
   let newText = $state("");
   let todos = $state([]);
@@ -17,7 +11,10 @@
 
 <main class="w-md mx-auto outline-1 p-4 rounded-lg mt-16">
   <Heading tag="h1">To-Do List</Heading>
-  <P>Made in <strong class="text-orange-600">Svelte</strong> + <strong class="text-blue-700">Flowbite</strong></P>
+  <P
+    >Made in <strong class="text-orange-600">Svelte</strong> +
+    <strong class="text-blue-700">Flowbite</strong></P
+  >
   <Hr class="my-4" />
   <div>
     {#each todos as todo (todo.id)}
@@ -28,12 +25,7 @@
           onclick={() => completeItem(todo)}
         />
         {#if todo.isEditable}
-          <Input
-            type="text"
-            bind:value={todo.text}
-            onblur={(e) => saveEdit(todo, e)}
-            class="mr-2"
-          />
+          <Input type="text" bind:value={todo.text} class="mr-2" />
         {:else}
           <Label
             for={todo.id}
@@ -43,7 +35,7 @@
           >
         {/if}
         <Button class="ml-auto mr-2" color="cyan" onclick={() => editItem(todo)}
-          >{todo.isEditable ? "Cancel" : "Edit"}</Button
+          >{todo.isEditable ? "Save" : "Edit"}</Button
         >
         <Button
           color="rose"

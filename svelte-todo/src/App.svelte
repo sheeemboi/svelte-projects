@@ -1,10 +1,10 @@
 <script>
   import { Checkbox, Input, Label, Button } from "flowbite-svelte";
   import { Heading, P, Hr } from "flowbite-svelte";
-  import { addItem, deleteItem, editItem, completeItem } from "./lib/utils";
+  import { getTodos, addItem, deleteItem, editItem, completeItem } from "./lib/utils";
 
   let newText = $state("");
-  let todos = $state([]);
+  let todos = $state(getTodos());
 
   $inspect(todos);
 </script>
@@ -22,7 +22,7 @@
         <Checkbox
           disabled={todo.isDisabled}
           id={todo.id}
-          onclick={() => completeItem(todo)}
+          onclick={() => todos = completeItem(todos, todo)}
         />
         {#if todo.isEditable}
           <Input type="text" bind:value={todo.text} class="mr-2" />
@@ -34,7 +34,7 @@
               : ''}">{todo.text}</Label
           >
         {/if}
-        <Button class="ml-auto mr-2" color="cyan" onclick={() => editItem(todo)}
+        <Button class="ml-auto mr-2" color="cyan" onclick={() => todos = editItem(todos, todo)}
           >{todo.isEditable ? "Save" : "Edit"}</Button
         >
         <Button
@@ -46,7 +46,7 @@
   </div>
   <form
     onsubmit={(e) => {
-      addItem(todos, newText, e);
+      todos = addItem(todos, newText, e);
       newText = "";
     }}
   >
